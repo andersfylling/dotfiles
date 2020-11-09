@@ -1,0 +1,9 @@
+bindsym $mod+l exec ~/.scripts/swaylock-blurred.sh
+
+
+# idle or inactivity lock
+exec swayidle -w \
+	timeout 300 'sh ~/.scripts/swaylock-blurred.sh' \
+	timeout 600 'swaymsg "output * dpms off"' \
+		resume "swaymsg * dpms on"' \
+	before-sleep 'sh ~/.scripts/swaylock-blurred.sh'

@@ -1,0 +1,19 @@
+# focused window
+# class                 border  backgr. text    indicator child_border
+  client.focused_inactive #0d1010 #212121 #d9d9d9 #0d1010 #063340
+  client.unfocused        #0d1010 #212121 #d9d9d9 #424242 #063340
+  client.focused          #27a6d1 #27a6d1 #000000 #27a6d1 #27a6d1
+
+# gaps
+  set $default_gaps_inner 10
+  set $default_gaps_outer 5
+  gaps inner $default_gaps_inner
+  gaps outer $default_gaps_outer
+  smart_gaps on
+  smart_borders on
+
+# other
+#  default_border 1pixel
+#  for_window [class="^.*"] border pixel 1
+#  hide_Edge_borders vertical
+default_border pixel

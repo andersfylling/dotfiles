@@ -103,3 +103,12 @@ alias gpgreset='gpg-connect-agent killagent /bye; gpg-connect-agent updatestartu
 # completion for kitty
 kitty + complete setup zsh | source /dev/stdin
 alias dot='/usr/bin/git --git-dir=/home/anders/dotfiles/ --work-tree=/home/anders'
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+# go
+export GOPATH=~/go
+export PATH=$PATH:$GOPATH/bin

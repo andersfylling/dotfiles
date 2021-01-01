@@ -1,5 +1,21 @@
 #!/bin/bash
 
+export GPG_TTY="$(tty)"
+export SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+gpgconf --launch gpg-agent
+
+# make sure git is correctly configured(!)
+git config --global gpg.program gpg
+git config --global push.gpgSign if-asked
+git config --global log.showSignature true
+git config --global commit.gpgsign true
+git config --global user.name "Anders Øen Fylling"
+git config --global user.email "anders@nordic.email"
+git config --global user.signingkey "0x0BB7FDB614ACA78A"
+git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+
+setxkbmap no
+
 export RANGER_LOAD_DEFAULT_RC=FALSE
 export SHELL=zsh
 export PATH="$PATH:/home/anders/.cargo/bin"

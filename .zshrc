@@ -98,11 +98,13 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias gpgreset='gpg-connect-agent killagent /bye; gpg-connect-agent updatestartuptty /bye; gpg-connect-agent /bye'
+alias icat="kitty +kitty icat"
 
+export GPG_TTY=$(tty)
 
 # completion for kitty
 kitty + complete setup zsh | source /dev/stdin
-alias dot='/usr/bin/git --git-dir=/home/anders/dotfiles/ --work-tree=/home/anders'
+alias dot='/usr/bin/git --git-dir=/home/anders/dotfiles/.git --work-tree=/home/anders'
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 if command -v pyenv 1>/dev/null 2>&1; then

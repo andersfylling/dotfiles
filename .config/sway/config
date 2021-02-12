@@ -58,7 +58,7 @@ set $font_size 11
 
     # start your launcher
     #bindsym $mod+Space exec ulauncher-toggle # "wofi --show='drun'"
-    bindsym $mod+Space exec "rofi -show drun"
+    bindsym $mod+Space exec "wofi --show drun"
 
     # screenshot
     bindsym $mod+s exec "grim -t jpeg ${HOME}/Pictures/screenshots/$(date +'%Y-%m-%d_%H-%M-%S').jpeg"
@@ -229,5 +229,3 @@ include ~/.config/sway/conf.d/*
 include /etc/sway/config.d/*
 
 #xwayland disable
-
-exec ulauncher --no-window

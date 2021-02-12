@@ -11,7 +11,7 @@ git config --global log.showSignature true
 git config --global commit.gpgsign true
 git config --global user.name "Anders Øen Fylling"
 git config --global user.email "anders@nordic.email"
-git config --global user.signingkey "0x0BB7FDB614ACA78A"
+git config --global user.signingkey "0BB7FDB614ACA78A"
 git config --global url.ssh://git@github.com/.insteadOf https://github.com/
 
 setxkbmap no
@@ -31,10 +31,32 @@ export BEMENU_BACKEND=wayland
 export MOZ_ENABLE_WAYLAND=1
 export XKB_DEFAULT_LAYOUT=no
 #export XDG_CURRENT_DESKTOP=Unity
-export XDG_SESSION_TYPE=wayland
+export XDG_SESSION_TYPE=sway
 
 # jetbrain products - TODO: remove once wayland is supported
 export _JAVA_AWT_WM_NONREPARENTING=1
+
+# XDG_RUNTIME is sometimes not set
+if [ -z "$XDG_RUNTIME_DIR" ]; then  # It's not already set
+  XDG_RUNTIME_DIR=/run/user/$UID  # Try systemd created path
+  if [ ! -d "$XDG_RUNTIME_DIR" ]; then
+    # systemd-created directory doesn't exist
+    XDG_RUNTIME_DIR=/tmp/$USER-runtime
+    if [ ! -d "$XDG_RUNTIME_DIR" ]; then  # Doesn't already exist
+      mkdir -m 0700 "$XDG_RUNTIME_DIR"
+    fi
+  fi
+fi
+# Check dir has got the correct type, ownership, and permissions
+if ! [[ -d "$XDG_RUNTIME_DIR" && -O "$XDG_RUNTIME_DIR" &&
+    "$(stat -c '%a' "$XDG_RUNTIME_DIR")" = 700 ]]; then
+  echo "\$XDG_RUNTIME_DIR: permissions problem with $XDG_RUNTIME_DIR:" >&2
+  ls -ld "$XDG_RUNTIME_DIR" >&2
+  XDG_RUNTIME_DIR=$(mktemp -d /tmp/"$USER"-runtime-XXXXXX)
+  echo "Set \$XDG_RUNTIME_DIR=$XDG_RUNTIME_DIR" >&2
+fi
+
+
 
 # start with logging
 export WAYLAND_DEBUG=1

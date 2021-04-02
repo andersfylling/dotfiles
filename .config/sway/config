@@ -8,7 +8,8 @@ font pango:Fira Code Retina 10
 #
 # Logo key. Use Mod1 for Alt.
 set $mod Mod4
-set $term kitty
+set $term alacritty
+set $term_app $term -e
 set $bar waybar
 set $browser firefox-developer-edition
 set $browser_window $browser --new-window
@@ -51,7 +52,8 @@ set $font_size 11
 # Basics:
 #
     # start a terminal
-    bindsym $mod+Return exec $term zsh 2>&1 >> ~/sway-term.log
+    #bindsym $mod+Return exec $term zsh 2>&1 >> ~/sway-term.log
+    bindsym $mod+Return exec $term 2>&1 >> ~/sway-term.log
 
     # kill focused window
     bindsym $mod+Shift+q kill
@@ -77,10 +79,10 @@ set $font_size 11
     bindsym $mod+Shift+c reload
 
     # ranger - file browser
-    bindsym $mod+m exec "$term ranger"
+    bindsym $mod+m exec "$term_app ranger"
 
     # gtop window
-    bindsym $mod+g+t exec "$term gtop"
+    bindsym $mod+g+t exec "$term_app btm"
 
     # syncthing window
     bindsym $mod+s+y exec "$browser_window http://127.0.0.1:8384/"
@@ -229,3 +231,6 @@ include ~/.config/sway/conf.d/*
 include /etc/sway/config.d/*
 
 #xwayland disable
+
+# notifications
+# exec mako 

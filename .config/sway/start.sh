@@ -13,6 +13,7 @@ git config --global user.name "Anders Øen Fylling"
 git config --global user.email "anders@nordic.email"
 git config --global user.signingkey "0BB7FDB614ACA78A"
 git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+git config --global init.defaultBranch master
 
 setxkbmap no
 
@@ -24,14 +25,15 @@ export PATH="$PATH:/home/anders/go/bin"
 # wayland rendering
 export KITTY_ENABLE_WAYLAND=1
 export QT_WAYLAND_FORCE_DPI=physical
-export QT_QPA_PLATFORM=wayland-egl
+#export QT_QPA_PLATFORM=wayland-egl
 export CLUTTER_BACKEND=wayland
 export SDL_VIDEODRIVER=wayland
 export BEMENU_BACKEND=wayland
 export MOZ_ENABLE_WAYLAND=1
 export XKB_DEFAULT_LAYOUT=no
-#export XDG_CURRENT_DESKTOP=Unity
+export XDG_CURRENT_DESKTOP=sway
 export XDG_SESSION_TYPE=sway
+export QT_QPA_PLATFORM=xcb
 
 # jetbrain products - TODO: remove once wayland is supported
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -65,5 +67,11 @@ export SWAY_LOG_FILE_PATH=${LOG_FILE_PATH}
 echo "" >> ${LOG_FILE_PATH}
 echo "################################" >> ${LOG_FILE_PATH}
 echo "## Started Sway $(date +'%Y-%m-%d %H:%M')" >> ${LOG_FILE_PATH}
-sway -d -V >> ${LOG_FILE_PATH} 2>&1
+
+if [ "$WAYLAND_DEBUG" == "1" ]; then
+	sway -d -V >> ${LOG_FILE_PATH} 2>&1
+else
+	sway >> ${LOG_FILE_PATH} 2>&1
+fi
+
 LOG_FILE_PATH=""
